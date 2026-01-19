@@ -57,48 +57,167 @@ function Countdown() {
   );
 }
 
-// HubSpot Form Component
-function HubSpotForm() {
-  const [loaded, setLoaded] = useState(false);
+// Custom HubSpot Form (no watermark)
+function ConsultationForm() {
+  const [form, setForm] = useState({
+    firstname: "",
+    lastname: "",
+    phone: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  useEffect(() => {
-    // Check if script already loaded
-    if (window.hbspt) {
-      window.hbspt.forms.create({
-        portalId: "5190509",
-        formId: "29945ab3-c7b9-4574-a5b8-dc3716bbf6b3",
-        region: "na1",
-        target: "#hubspot-form-container",
-      });
-      setLoaded(true);
-      return;
-    }
+  const subjects = [
+    "Masters in International Business",
+    "Masters in Computer Science",
+    "Masters in Data Analytics",
+    "Masters in Finance",
+    "Masters in Marketing",
+    "Masters in Engineering",
+    "Bachelors Degree",
+    "English Language Course",
+    "Other",
+  ];
 
-    const script = document.createElement("script");
-    script.src = "https://js.hsforms.net/forms/embed/v2.js";
-    script.async = true;
-    script.onload = () => {
-      if (window.hbspt) {
-        window.hbspt.forms.create({
-          portalId: "5190509",
-          formId: "29945ab3-c7b9-4574-a5b8-dc3716bbf6b3",
-          region: "na1",
-          target: "#hubspot-form-container",
-        });
-        setLoaded(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+
+    try {
+      const response = await fetch(
+        "https://api.hsforms.com/submissions/v3/integration/submit/5190509/29945ab3-c7b9-4574-a5b8-dc3716bbf6b3",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fields: [
+              { name: "firstname", value: form.firstname },
+              { name: "lastname", value: form.lastname },
+              { name: "phone", value: form.phone },
+              { name: "email", value: form.email },
+              { name: "programme_choice_1", value: form.subject },
+              { name: "message", value: form.message },
+            ],
+            context: {
+              pageUri: window.location.href,
+              pageName: document.title,
+            },
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("HubSpot response:", response.status, data);
+
+      if (response.ok) {
+        setStatus("success");
+      } else {
+        console.error("HubSpot error:", data);
+        setStatus("error");
       }
-    };
-    document.head.appendChild(script);
-  }, []);
+    } catch (err) {
+      console.error("Submission error:", err);
+      setStatus("error");
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <div className="text-center py-8">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h4 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h4>
+        <p className="text-gray-600">We&apos;ll contact you within 24 hours.</p>
+      </div>
+    );
+  }
+
+  const inputClass = "w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#F7A906] focus:ring-2 focus:ring-[#F7A906]/20 outline-none transition-all";
 
   return (
-    <div id="hubspot-form-container" className="min-h-[200px]">
-      {!loaded && (
-        <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#F7A906]"></div>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">First Name*</label>
+          <input
+            type="text"
+            required
+            value={form.firstname}
+            onChange={(e) => setForm({ ...form, firstname: e.target.value })}
+            className={inputClass}
+          />
         </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Last Name*</label>
+          <input
+            type="text"
+            required
+            value={form.lastname}
+            onChange={(e) => setForm({ ...form, lastname: e.target.value })}
+            className={inputClass}
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number*</label>
+          <input
+            type="tel"
+            required
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Email*</label>
+          <input
+            type="email"
+            required
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className={inputClass}
+          />
+        </div>
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Which subject do you want to study?</label>
+        <select
+          value={form.subject}
+          onChange={(e) => setForm({ ...form, subject: e.target.value })}
+          className={inputClass}
+        >
+          <option value="">Select a subject...</option>
+          {subjects.map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+        <textarea
+          rows={3}
+          value={form.message}
+          onChange={(e) => setForm({ ...form, message: e.target.value })}
+          className={inputClass + " resize-none"}
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="w-full py-4 text-lg font-bold text-white rounded-lg gradient-orange hover:opacity-90 transition-opacity disabled:opacity-50"
+      >
+        {status === "sending" ? "Sending..." : "Submit"}
+      </button>
+      {status === "error" && (
+        <p className="text-red-600 text-sm text-center">Something went wrong. Please try again.</p>
       )}
-    </div>
+    </form>
   );
 }
 
@@ -767,7 +886,7 @@ export default function Page() {
               </svg>
             </button>
             <h3 className="text-2xl font-bold mb-6 text-center">Get Free Consultation</h3>
-            <HubSpotForm />
+            <ConsultationForm />
           </div>
         </div>
       )}
