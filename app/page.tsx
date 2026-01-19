@@ -206,11 +206,11 @@ export default function Page() {
       {/* ============ WHY IRELAND ============ */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-5xl font-black text-center mb-4">
-            Why <span className="text-[#00B2CC]">20,000 Students</span> Choose Ireland Every Year
+          <h2 className="text-3xl md:text-5xl font-black text-center mb-4 text-[#1a1a1a]">
+            Why Study in <span className="text-[#2D6A4F]">Ireland</span>?
           </h2>
           <p className="text-xl text-gray-500 text-center mb-16 max-w-3xl mx-auto">
-            A popular destination for Malaysian postgrads seeking world-class education and EU work rights
+            Every year, due to its high education standards, approximately 20,000 international students come to Ireland!
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -378,10 +378,10 @@ export default function Page() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl md:text-5xl font-black text-center mb-4">
-            Here Are Some of Our Students Who Have Already Taken This Journey
+            Students Who Already Took This Journey
           </h2>
           <p className="text-xl text-gray-500 text-center mb-16">
-            International students who studied in Ireland and built global careers
+            They are building careers at global tech companies in Ireland
           </p>
 
           <div className="grid sm:grid-cols-2 gap-6 mb-12">
@@ -443,26 +443,63 @@ export default function Page() {
                 <p>Malaysia is our newest focus, and consultations are now open.</p>
               </div>
 
-              <div className="mt-8 rounded-2xl bg-white/70 p-5 shadow-sm">
-                <div className="text-3xl font-black text-[#F7A906]">4.9</div>
-                <div className="text-[#F7A906] text-lg">★★★★★</div>
-                <div className="text-sm text-gray-600 mt-1">1,000+ Reviews on Google &amp; Facebook</div>
-              </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
-              {[
-                { value: "3", label: "Offices Worldwide" },
-                { value: "34", label: "Expert Consultants" },
-                { value: "14+", label: "Years Experience" },
-                { value: "4,782", label: "Students Helped" },
-              ].map((s, i) => (
-                <div key={i} className="bg-gray-50 p-6 rounded-2xl text-center">
-                  <div className="text-4xl md:text-5xl font-black text-[#F7A906]">{s.value}</div>
-                  <div className="text-gray-600">{s.label}</div>
-                </div>
-              ))}
+            <div className="relative w-full rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
+              <Image
+                src="/educationstateteam.png"
+                alt="Education State team"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 50vw, 100vw"
+              />
             </div>
+          </div>
+          <div className="mt-12 flex flex-wrap justify-center gap-6">
+            {[
+              { value: "3", label: "Offices Worldwide" },
+              { value: "34", label: "Expert Consultants" },
+              { value: "14+", label: "Years Experience" },
+              { value: "4,782", label: "Students Helped" },
+            ].map((s) => (
+              <div key={s.label} className="bg-white/70 px-6 py-4 rounded-2xl text-center shadow-sm">
+                <div className="text-3xl md:text-4xl font-black text-[#F7A906]">{s.value}</div>
+                <div className="text-gray-600">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ DUBLIN OFFICE ============ */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-black mb-6">Our Dublin Office</h2>
+          <div className="p-2 text-left md:text-center">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 text-xl text-gray-700">
+              <span className="font-semibold text-[#1a1a1a]">Education Ireland</span>
+              <span className="hidden md:inline text-gray-300">•</span>
+              <span className="text-[#F7A906] font-extrabold text-2xl">4.9</span>
+              <span className="flex items-center gap-1 text-[#F7A906]" aria-label="5 star rating">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </span>
+              <span className="text-gray-500">(427 Google reviews)</span>
+            </div>
+            <div className="mt-4 text-gray-600">
+              <a
+                href="https://maps.app.goo.gl/MTH73Jve4EhA2Zwy8"
+                className="text-[#00B2CC] font-semibold hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                23 Marlborough St, North City, Dublin, D01 R2V3, Ireland
+              </a>
+            </div>
+            <div className="mt-2 text-gray-600">Malaysia contact: +60 11-2502 4336</div>
           </div>
         </div>
       </section>
@@ -581,39 +618,6 @@ export default function Page() {
                 <p className="text-gray-600 whitespace-pre-line">{faq.a}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ DUBLIN OFFICE ============ */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-black mb-6">Our Dublin Office</h2>
-          <div className="p-2 text-left md:text-center">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 text-xl text-gray-700">
-              <span className="font-semibold text-[#1a1a1a]">Education Ireland</span>
-              <span className="hidden md:inline text-gray-300">•</span>
-              <span className="text-[#F7A906] font-extrabold text-2xl">4.9</span>
-              <span className="flex items-center gap-1 text-[#F7A906]" aria-label="5 star rating">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </span>
-              <span className="text-gray-500">(427 Google reviews)</span>
-            </div>
-            <div className="mt-4 text-gray-600">
-              <a
-                href="https://maps.app.goo.gl/MTH73Jve4EhA2Zwy8"
-                className="text-[#00B2CC] font-semibold hover:underline"
-                target="_blank"
-                rel="noreferrer"
-              >
-                23 Marlborough St, North City, Dublin, D01 R2V3, Ireland
-              </a>
-            </div>
-            <div className="mt-2 text-gray-600">Malaysia contact: +60 11-2502 4336</div>
           </div>
         </div>
       </section>
