@@ -44,7 +44,7 @@ function Countdown() {
 
 // Lead Form Component
 function LeadForm({ dark = false }: { dark?: boolean }) {
-  const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", city: "" });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
 
@@ -96,6 +96,14 @@ function LeadForm({ dark = false }: { dark?: boolean }) {
         placeholder="Phone Number"
         value={form.phone}
         onChange={(e) => setForm({ ...form, phone: e.target.value })}
+        className={inputClass}
+      />
+      <input
+        type="text"
+        required
+        placeholder="City"
+        value={form.city}
+        onChange={(e) => setForm({ ...form, city: e.target.value })}
         className={inputClass}
       />
       <button
@@ -377,8 +385,8 @@ export default function Page() {
       {/* ============ SUCCESS STORIES ============ */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-5xl font-black text-center mb-4">
-            Students Who Already Took This Journey
+          <h2 className="text-[1.5rem] md:text-[2.75rem] font-black text-center mb-4">
+            Students Who Took This Journey With Us
           </h2>
           <p className="text-xl text-gray-500 text-center mb-16">
             They are building careers at global tech companies in Ireland
@@ -397,6 +405,15 @@ export default function Page() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="text-center mb-12">
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-2 px-8 py-4 gradient-orange text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+            >
+              Get Free Consultation
+            </button>
           </div>
 
           <div className="rounded-3xl bg-white p-10 shadow-lg">
@@ -468,28 +485,21 @@ export default function Page() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ============ DUBLIN OFFICE ============ */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-black mb-6">Our Dublin Office</h2>
-          <div className="p-2 text-left md:text-center">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 text-xl text-gray-700">
+          <div className="mt-10 text-center">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 text-lg text-gray-700">
               <span className="font-semibold text-[#1a1a1a]">Education Ireland</span>
               <span className="hidden md:inline text-gray-300">•</span>
-              <span className="text-[#F7A906] font-extrabold text-2xl">4.9</span>
+              <span className="text-[#F7A906] font-extrabold text-xl">4.9</span>
               <span className="flex items-center gap-1 text-[#F7A906]" aria-label="5 star rating">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <svg key={i} className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
               </span>
               <span className="text-gray-500">(427 Google reviews)</span>
             </div>
-            <div className="mt-4 text-gray-600">
+            <div className="mt-3 text-gray-600">
               <a
                 href="https://maps.app.goo.gl/MTH73Jve4EhA2Zwy8"
                 className="text-[#00B2CC] font-semibold hover:underline"
@@ -499,7 +509,7 @@ export default function Page() {
                 23 Marlborough St, North City, Dublin, D01 R2V3, Ireland
               </a>
             </div>
-            <div className="mt-2 text-gray-600">Malaysia contact: +60 11-2502 4336</div>
+            <div className="mt-1 text-gray-600">Malaysia contact: +60 11-2502 4336</div>
           </div>
         </div>
       </section>
@@ -706,11 +716,15 @@ export default function Page() {
       {/* ============ CONSULTATION MODAL ============ */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
           role="dialog"
           aria-modal="true"
+          onClick={() => setIsModalOpen(false)}
         >
-          <div className="relative w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl">
+          <div
+            className="relative w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
