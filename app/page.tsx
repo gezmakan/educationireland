@@ -530,28 +530,55 @@ export default function Page() {
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-black text-center mb-16">
-            Frequently Asked Questions
+            FAQ About Master&apos;s Degrees in Ireland
           </h2>
 
           <div className="grid gap-6 md:grid-cols-2">
             {[
-              { q: "When is the application deadline?", a: "For September 2026 intake, the deadline is April 30, 2026. Some universities may be more flexible." },
-              { q: "Do I need IELTS?", a: "Not always. Many programs accept the Duolingo English Test (about RM230) instead of IELTS (about RM1,000)." },
-              { q: "Can I work while studying?", a: "Yes! You can work 20 hours/week during term and full-time during holidays. Minimum wage is about RM70/hour." },
-              { q: "What happens after graduation?", a: "You get a 2-year work visa to stay in Ireland and work full-time at any company." },
-              { q: "What GPA do I need?", a: "Most universities require 2.2-2.6 out of 4.0. We'll help you find the right fit for your profile." },
               {
-                q: "Are there scholarships?",
-                a: "Yes! NCI offers about RM10,000-RM20,000, Griffith offers about RM13,000-RM18,000, and DBS offers about RM5,000 for early deposits.",
+                q: "When is the application deadline?",
+                a: "For September 2026 intakes, the application deadline is April 30. Note: Some universities may be more flexible.",
               },
-              { q: "Do Malaysian students need a visa?", a: "Yes. A student visa is required for Irish master's programs, and we guide you through the full process." },
-              { q: "Can I budget in MYR?", a: "Yes. We help you plan tuition and living costs in both EUR and MYR so you can make clear decisions." },
-              { q: "What's the visa refusal rate?", a: "Zero. None of our Master's students have ever been refused a visa." },
-              { q: "Is the consultation really free?", a: "100% free. We're paid by universities, not students. You pay nothing for our services." },
+              {
+                q: "Do I have to take the IELTS exam?",
+                a: "The Irish government now accepts the Duolingo English Test for all programs. The Duolingo exam costs about RM230, while the IELTS exam costs about RM1,000.",
+              },
+              {
+                q: "Can I apply without an English proficiency score?",
+                a: "Yes, you can apply. If your academic background is considered sufficient, the university may issue a Conditional Offer. This means your offer will become unconditional once you submit proof of English proficiency.",
+              },
+              {
+                q: "What is the minimum GPA required?",
+                a: "Some universities require a minimum GPA of 2.2 out of 4, while others require at least 2.6.",
+              },
+              {
+                q: "Do universities offer scholarships?",
+                a: "NCI offers about RM10,000 scholarships to students with a GPA above 2.60, and about RM20,000 scholarships to students with a GPA above 3.00.\n\nGriffith College offers scholarships between about RM13,000 and RM18,000, depending on both GPA and English proficiency.\n\nDBS provides about RM5,000 to students who pay their deposit after receiving the offer letter and complete the remaining payment before the course start date.",
+              },
+              {
+                q: "Can I work while studying?",
+                a: "Yes. During summer and Christmas holidays, you are allowed to work full-time, and part-time during the rest of the year. As of January 1, 2025, the minimum wage in Ireland is about RM70 per hour, making Ireland one of the countries with the highest minimum wages in the world.",
+              },
+              {
+                q: "Do I have the right to work in Ireland after graduation?",
+                a: "Graduates of master's programs in Ireland are granted a 2-year work and residence permit. With this permit, you can work full-time in Ireland after graduation.",
+              },
+              {
+                q: "Do I need to pay an application fee?",
+                a: "Yes. To start the process, a about RM1,300 deposit is required. If you are accepted, this amount will be deducted from your tuition fee. If you are not accepted, the deposit will be fully refunded.",
+              },
+              {
+                q: "Have any of your students ever been refused a visa?",
+                a: "So far, none of our master's students have received a visa refusal.",
+              },
+              {
+                q: "If my visa is refused, how much will be deducted?",
+                a: "Only about RM1,300 will be deducted. The remaining tuition fee will be fully refunded to you.",
+              },
             ].map((faq, i) => (
               <div key={i} className="border-b border-gray-200 pb-6">
                 <h3 className="text-xl font-bold text-[#00B2CC] mb-2">{faq.q}</h3>
-                <p className="text-gray-600">{faq.a}</p>
+                <p className="text-gray-600 whitespace-pre-line">{faq.a}</p>
               </div>
             ))}
           </div>
