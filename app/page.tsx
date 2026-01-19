@@ -387,6 +387,15 @@ export default function Page() {
               </div>
             ))}
           </div>
+          <div className="mt-12 text-center">
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-2 px-8 py-4 gradient-orange text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+            >
+              Start Your Ireland Journey
+            </button>
+          </div>
         </div>
       </section>
 
@@ -415,21 +424,57 @@ export default function Page() {
             ))}
           </div>
 
-          <div className="rounded-3xl p-10">
-            <h3 className="text-2xl md:text-3xl font-black mb-8 text-[#1a1a1a]">Ireland is Home to Global Giants</h3>
+          <div>
+            <h3 className="text-2xl md:text-3xl font-black mb-8 text-[#1a1a1a] text-center">Ireland is Home to Global Giants</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { label: "US Tech Companies", companies: ["Google", "Meta", "Apple"] },
-                { label: "Game Companies", companies: ["EA", "Ubisoft", "Activision Blizzard"] },
-                { label: "Financial Services", companies: ["JPMorgan", "Citi", "Bank of America"] },
-                { label: "Pharma Companies", companies: ["Pfizer", "Johnson & Johnson", "Abbott"] },
+                {
+                  label: "US Tech Companies",
+                  companies: ["Google", "Meta", "Apple"],
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: "Game Companies",
+                  companies: ["EA", "Ubisoft", "Activision Blizzard"],
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: "Financial Services",
+                  companies: ["JPMorgan", "Citi", "Bank of America"],
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: "Pharma Companies",
+                  companies: ["Pfizer", "Johnson & Johnson", "Abbott"],
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                  ),
+                },
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-2xl bg-white p-4 text-center"
+                  className="rounded-2xl bg-white p-6 text-center shadow-sm"
                 >
-                  <div className="text-lg font-extrabold text-[#1a1a1a]">{item.label}</div>
-                  <div className="mt-3 text-sm text-gray-600">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#F7A906]/20 text-[#F7A906] mb-4">
+                    {item.icon}
+                  </div>
+                  <div className="text-lg font-bold text-[#1a1a1a]">{item.label}</div>
+                  <div className="mt-2 text-base text-gray-600">
                     {item.companies.join(" • ")}
                   </div>
                 </div>
@@ -521,6 +566,13 @@ export default function Page() {
               </a>
             </div>
             <div className="mt-1 text-gray-600">Malaysia contact: +60 11-2502 4336</div>
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="mt-8 inline-flex items-center gap-2 px-8 py-4 gradient-orange text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+            >
+              Talk to Our Team
+            </button>
           </div>
         </div>
       </section>
