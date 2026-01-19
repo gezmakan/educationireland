@@ -110,6 +110,8 @@ function LeadForm({ dark = false }: { dark?: boolean }) {
 }
 
 export default function Page() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <main>
       {/* ============ HERO ============ */}
@@ -123,29 +125,71 @@ export default function Page() {
 
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-black leading-tight mb-8">
-              Your Master&apos;s Journey in Ireland Starts Here
+              Ireland-Only Master&apos;s Consulting for Malaysian Students
             </h1>
             <div className="flex flex-wrap justify-center gap-4 text-lg">
               <span className="bg-emerald-500 px-4 py-2 rounded-full font-semibold">✓ 100% Free Service</span>
-              <span className="bg-amber-400 text-black px-4 py-2 rounded-full font-semibold">✓ 14+ Years Experience</span>
-              <span className="bg-purple-500 px-4 py-2 rounded-full font-semibold">✓ On-Ground Support in Ireland</span>
+              <span className="bg-amber-400 text-black px-4 py-2 rounded-full font-semibold">✓ 15+ Years Ireland-Only Expertise</span>
+              <span className="bg-purple-500 px-4 py-2 rounded-full font-semibold">✓ Dublin Office + Malaysia Support</span>
             </div>
             <p className="mt-6 text-lg opacity-80">
-              We guide you through universities, tuition fees, applications, visas, and more.
+              Trusted by students worldwide. Now open for Malaysia consultations.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ============ HERO FORM ============ */}
-      <section className="bg-gray-100 py-16">
-        <div className="max-w-xl mx-auto px-6">
-          <div className="bg-white rounded-2xl p-8 shadow-lg">
-            <h2 className="text-2xl font-bold mb-6 text-center">Get Free Consultation</h2>
-            <LeadForm />
-            <p className="text-center text-sm text-gray-500 mt-4">
-              Join 4,782+ students who started their Ireland journey with us
-            </p>
+      {/* ============ CONSULTATION SECTION ============ */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src="/consultimage.png"
+                alt="Students in Ireland"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+            </div>
+            <div>
+              <p className="text-[#F7A906] font-semibold mb-3">Take a Step Forward for Your Career...</p>
+              <h2 className="text-3xl md:text-4xl font-black mb-6">Imagine Yourself in Ireland!</h2>
+              <ul className="space-y-3 text-gray-700 mb-8">
+                {[
+                  "Study for a Master’s Degree at the World’s Prestigious Universities",
+                  "Take Your English to the Highest Level",
+                  "Stand Out from Your Competitors",
+                  "Strengthen Your CV",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <svg className="h-5 w-5 text-[#2D6A4F] mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-lg text-gray-700 mb-6">
+                When You Return, Let Your Competitors Think... If You Even Want to Return!
+              </p>
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="inline-flex items-center gap-2 px-8 py-4 gradient-orange text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+              >
+                Get in Touch for Free Consulting!
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
+              <p className="text-sm text-gray-500 mt-4">
+                Join 4,782+ students who started their Ireland journey with us
+              </p>
+              <p className="text-sm text-gray-500 mt-1">
+                Based in Putrajaya, supporting students across Malaysia
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -157,22 +201,146 @@ export default function Page() {
             Why <span className="text-[#00B2CC]">20,000 Students</span> Choose Ireland Every Year
           </h2>
           <p className="text-xl text-gray-500 text-center mb-16 max-w-3xl mx-auto">
-            World-class education, career opportunities, and a path to working at global tech giants
+            A popular destination for Malaysian postgrads seeking world-class education and EU work rights
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { icon: "🎓", title: "Top 100 Universities", desc: "Study at globally ranked institutions with world-class faculty and facilities" },
-              { icon: "📋", title: "Easy Visa Process", desc: "Student visas processed in just 3-4 weeks. Zero refusals for our Master's students" },
-              { icon: "💼", title: "Work While Studying", desc: "Earn €14.15/hour minimum wage working 20 hours/week during your studies" },
-              { icon: "🚀", title: "2-Year Work Visa", desc: "Stay and work full-time for 2 years after graduation at top companies" },
-              { icon: "🗣️", title: "English Speaking", desc: "No need to learn a new language. Irish English is clear and easy to understand" },
-              { icon: "🤝", title: "Friendly Culture", desc: "Irish people are known worldwide for their warmth and welcoming nature" },
-              { icon: "✈️", title: "Gateway to Europe", desc: "Easy access to all of Europe with affordable flights from Dublin" },
-              { icon: "🏞️", title: "Beautiful Country", desc: "Green landscapes, dramatic cliffs, historic castles - explore while you study" },
+              {
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M12 14l9-5-9-5-9 5 9 5z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                    />
+                  </svg>
+                ),
+                title: "Top 100 Universities",
+                desc: "Study at globally ranked institutions with world-class faculty and facilities",
+              },
+              {
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                ),
+                title: "Easy Visa Process",
+                desc: "Student visas processed in about 3-4 weeks. Zero refusals for our Master's students",
+              },
+              {
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                ),
+                title: "Work While Studying",
+                desc: "Earn about RM70/hour minimum wage working 20 hours/week during your studies",
+              },
+              {
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                ),
+                title: "2-Year Work Visa",
+                desc: "Stay and work full-time for 2 years after graduation at top companies",
+              },
+              {
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
+                    />
+                  </svg>
+                ),
+                title: "English Speaking",
+                desc: "English-taught programs with IELTS or Duolingo options",
+              },
+              {
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                ),
+                title: "Friendly Culture",
+                desc: "Irish people are known worldwide for their warmth and welcoming nature",
+              },
+              {
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M5 3l4 4-4 4M9 7h10a4 4 0 014 4v0"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M19 21l-4-4 4-4M15 17H5a4 4 0 01-4-4v0"
+                    />
+                  </svg>
+                ),
+                title: "Gateway to Europe",
+                desc: "Easy Europe access with 1-stop routes from Malaysia",
+              },
+              {
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M3 3v18h18"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M3 17l6-6 4 4 8-8"
+                    />
+                  </svg>
+                ),
+                title: "Beautiful Country",
+                desc: "Green landscapes, dramatic cliffs, historic castles - explore while you study",
+              },
             ].map((item, i) => (
               <div key={i} className="text-center p-6 rounded-2xl bg-gray-50 hover:bg-[#F7A906]/10 transition-colors">
-                <div className="text-4xl mb-4">{item.icon}</div>
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#00B2CC]/10 text-[#00B2CC]">
+                  {item.icon}
+                </div>
                 <h3 className="text-xl font-bold mb-2">{item.title}</h3>
                 <p className="text-gray-600">{item.desc}</p>
               </div>
@@ -184,7 +352,18 @@ export default function Page() {
       {/* ============ SPECIAL OFFER ============ */}
       <section className="py-20 bg-gradient-to-r from-[#1a1a1a] to-[#2d2d2d] text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="text-6xl mb-6">🎁</div>
+          <div className="mb-6 flex justify-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-[#F7A906]">
+              <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M12 8v13m-7-9h14M5 8l4 13m10-13-4 13M6 8c0-1.657 1.343-3 3-3 1.2 0 2.236.704 2.733 1.72C12.23 5.704 13.266 5 14.467 5c1.657 0 3 1.343 3 3"
+                />
+              </svg>
+            </div>
+          </div>
           <h2 className="text-3xl md:text-5xl font-black mb-8">
             Special Offer for <span className="text-[#F7A906]">September 2026</span>
           </h2>
@@ -192,10 +371,10 @@ export default function Page() {
           <div className="grid md:grid-cols-2 gap-6 text-left mb-10">
             {[
               "Special Scholarships for Successful Students",
-              "Admission with Duolingo ($49 vs €200 IELTS)",
+              "Admission with Duolingo (about RM230 vs IELTS about RM1,000)",
               "Flexible Installment Payment Options",
-              "Free Health Insurance (€100 value)",
-              "Free Accommodation Arrangement (€100 value)",
+              "Free Health Insurance (about RM500)",
+              "Free Accommodation Arrangement (about RM500)",
               "Ongoing Support from Our Dublin Office",
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 text-lg">
@@ -207,7 +386,7 @@ export default function Page() {
 
           <div className="inline-block bg-[#F7A906] text-black px-8 py-4 rounded-xl">
             <div className="text-sm uppercase tracking-wider">Total Savings</div>
-            <div className="text-4xl font-black">€200+</div>
+            <div className="text-4xl font-black">RM1,000+</div>
           </div>
         </div>
       </section>
@@ -216,27 +395,23 @@ export default function Page() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl md:text-5xl font-black text-center mb-4">
-            Our Students Now Work At
+            Here Are Some of Our Students Who Have Already Taken This Journey
           </h2>
           <p className="text-xl text-gray-500 text-center mb-16">
-            From classroom to career at the world&apos;s best companies
+            International students who studied in Ireland and built global careers
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid sm:grid-cols-2 gap-6 mb-12">
             {[
-              { name: "Erel Ozturk", company: "Druid Software", role: "Software Engineer", school: "National College of Ireland" },
-              { name: "Ebubekir Ayhan", company: "Microsoft", role: "Solution Engineer", school: "National College of Ireland" },
-              { name: "Bilge Tuna", company: "Covalen", role: "Energy Engineer", school: "TU Dublin" },
-              { name: "Cemre Er", company: "TikTok", role: "Legal Consultant", school: "Dublin City University" },
-            ].map((p, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl shadow-sm">
-                <div className="w-14 h-14 bg-gradient-to-br from-[#F7A906] to-[#E09800] rounded-full flex items-center justify-center text-white text-xl font-bold mb-4">
-                  {p.name.split(" ").map((n) => n[0]).join("")}
+              { src: "/professionals/erelozturk.png", alt: "Erel Ozturk" },
+              { src: "/professionals/ebubekirayhan.png", alt: "Ebubekir Ayhan" },
+              { src: "/professionals/bilgetuna.png", alt: "Bilge Tuna" },
+              { src: "/professionals/cemreer.png", alt: "Cemre Er" },
+            ].map((p) => (
+              <div key={p.src} className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <div className="relative aspect-[4/3]">
+                  <Image src={p.src} alt={p.alt} fill className="object-cover" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
                 </div>
-                <div className="font-bold text-lg">{p.name}</div>
-                <div className="text-[#F7A906] font-semibold">{p.company}</div>
-                <div className="text-gray-500 text-sm">{p.role}</div>
-                <div className="text-gray-400 text-sm mt-2">{p.school}</div>
               </div>
             ))}
           </div>
@@ -263,10 +438,11 @@ export default function Page() {
                 Why <span className="text-[#F7A906]">Education State</span>?
               </h2>
               <div className="space-y-4 text-lg text-gray-600">
-                <p>Founded in 2010, we are the <strong className="text-gray-900">only consultancy focused exclusively on Ireland</strong> with an office in Dublin.</p>
+                <p>Founded in 2010, we are <strong className="text-gray-900">Ireland-only specialists</strong> with an office in Dublin.</p>
                 <p><strong className="text-gray-900">All services are 100% FREE.</strong> We get paid by universities, not you.</p>
                 <p>Our team are former international students who&apos;ve been through the journey themselves.</p>
                 <p>We support you <strong className="text-gray-900">before AND after</strong> you arrive in Ireland.</p>
+                <p>Malaysia is our newest focus, and consultations are now open.</p>
               </div>
 
               <div className="flex items-center gap-6 mt-8">
@@ -306,17 +482,50 @@ export default function Page() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { name: "Ercan Bebe", quote: "Knowing they have an office in Ireland and that I can always knock on their door gives me a sense of security." },
-              { name: "Mehmet Taspinar", quote: "Their care, patience, and clear answers helped me manage the visa process very smoothly." },
-              { name: "Tolga Solak", quote: "My consultant supported me throughout my entire journey—from sharing her knowledge to being there whenever I had questions." },
-              { name: "Hilola Husanbaeva", quote: "A consultancy I can confidently recommend to anyone who wants to study abroad." },
-              { name: "Ayse Kicali", quote: "It's been two years and I want to thank Mr. Sinan for making my dream of a Master's in Ireland come true." },
-              { name: "Atakan Keles", quote: "Their warm, sincere attitude makes you feel like you're in a friendly environment. So glad I chose Education Ireland!" },
+              {
+                name: "Bebe E.",
+                quote:
+                  "Knowing that they have an office in Ireland and that I can always knock on their door gives me a sense of security.",
+                image: "/Bebe E..png",
+              },
+              {
+                name: "Hilola H.",
+                quote:
+                  "A good consultancy company that I can confidently recommend to anyone who wants to study abroad.",
+                image: "/Hilola H..png",
+              },
+              {
+                name: "Nisa Nur S.",
+                quote: "Don't be afraid to write your own story...",
+                image: "/Nisa Nur S..png",
+              },
+              {
+                name: "Elif O.",
+                quote:
+                  "Knowing that they have an office in Ireland and that I can always knock on their door gives me a sense of security.",
+                image: "/Elif O. .png",
+              },
+              {
+                name: "Muhammad T.",
+                quote:
+                  "I owe getting my visa to Education Ireland. Their care, interest, patience, and clear answers to all my questions helped me manage this process very smoothly.",
+                image: "/Muhammad T..png",
+              },
+              {
+                name: "Tolga S.",
+                quote:
+                  "I am truly grateful to my consultant Seda, who supported me throughout my entire journey in Ireland from sharing her knowledge with me to being there whenever I had questions.",
+                image: "/Tolga S..png",
+              },
             ].map((t, i) => (
               <div key={i} className="bg-white p-6 rounded-2xl shadow-sm">
-                <div className="text-4xl text-[#F7A906] mb-4">&ldquo;</div>
-                <p className="text-gray-600 mb-4">{t.quote}</p>
-                <div className="font-bold">{t.name}</div>
+                <div className="flex items-center justify-center mb-5">
+                  <div className="relative h-24 w-24 overflow-hidden rounded-full shadow-sm">
+                    <Image src={t.image} alt={t.name} fill className="object-cover" sizes="96px" />
+                  </div>
+                </div>
+                <div className="font-bold text-center">{t.name}</div>
+                <p className="text-gray-600 mt-3 text-center italic">{t.quote}</p>
               </div>
             ))}
           </div>
@@ -330,14 +539,19 @@ export default function Page() {
             Frequently Asked Questions
           </h2>
 
-          <div className="space-y-6">
+          <div className="grid gap-6 md:grid-cols-2">
             {[
               { q: "When is the application deadline?", a: "For September 2026 intake, the deadline is April 30, 2026. Some universities may be more flexible." },
-              { q: "Do I need IELTS?", a: "No! Ireland accepts Duolingo English Test ($49) instead of IELTS (€200). Much cheaper and easier." },
-              { q: "Can I work while studying?", a: "Yes! You can work 20 hours/week during term and full-time during holidays. Minimum wage is €14.15/hour." },
+              { q: "Do I need IELTS?", a: "Not always. Many programs accept the Duolingo English Test (about RM230) instead of IELTS (about RM1,000)." },
+              { q: "Can I work while studying?", a: "Yes! You can work 20 hours/week during term and full-time during holidays. Minimum wage is about RM70/hour." },
               { q: "What happens after graduation?", a: "You get a 2-year work visa to stay in Ireland and work full-time at any company." },
               { q: "What GPA do I need?", a: "Most universities require 2.2-2.6 out of 4.0. We'll help you find the right fit for your profile." },
-              { q: "Are there scholarships?", a: "Yes! NCI offers €2,000-€4,000, Griffith offers €2,500-€3,500, and DBS offers €1,000 for early deposits." },
+              {
+                q: "Are there scholarships?",
+                a: "Yes! NCI offers about RM10,000-RM20,000, Griffith offers about RM13,000-RM18,000, and DBS offers about RM5,000 for early deposits.",
+              },
+              { q: "Do Malaysian students need a visa?", a: "Yes. A student visa is required for Irish master's programs, and we guide you through the full process." },
+              { q: "Can I budget in MYR?", a: "Yes. We help you plan tuition and living costs in both EUR and MYR so you can make clear decisions." },
               { q: "What's the visa refusal rate?", a: "Zero. None of our Master's students have ever been refused a visa." },
               { q: "Is the consultation really free?", a: "100% free. We're paid by universities, not students. You pay nothing for our services." },
             ].map((faq, i) => (
@@ -346,6 +560,39 @@ export default function Page() {
                 <p className="text-gray-600">{faq.a}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ DUBLIN OFFICE ============ */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-black mb-6">Our Dublin Office</h2>
+          <div className="p-2 text-left md:text-center">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 text-xl text-gray-700">
+              <span className="font-semibold text-[#1a1a1a]">Education Ireland</span>
+              <span className="hidden md:inline text-gray-300">•</span>
+              <span className="text-[#F7A906] font-extrabold text-2xl">4.9</span>
+              <span className="flex items-center gap-1 text-[#F7A906]" aria-label="5 star rating">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </span>
+              <span className="text-gray-500">(427 Google reviews)</span>
+            </div>
+            <div className="mt-4 text-gray-600">
+              <a
+                href="https://maps.app.goo.gl/MTH73Jve4EhA2Zwy8"
+                className="text-[#00B2CC] font-semibold hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                23 Marlborough St, North City, Dublin, D01 R2V3, Ireland
+              </a>
+            </div>
+            <div className="mt-2 text-gray-600">Malaysia contact: +60 11-2502 4336</div>
           </div>
         </div>
       </section>
@@ -391,10 +638,34 @@ export default function Page() {
       {/* ============ FOOTER ============ */}
       <footer className="bg-black text-gray-500 py-8">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <div className="text-xl font-bold text-white mb-2">🍀 EDUCATION STATE</div>
+          <div className="text-xl font-bold text-white mb-2">EDUCATION STATE</div>
           <p>© {new Date().getFullYear()} Education State. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* ============ CONSULTATION MODAL ============ */}
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="relative w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl">
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(false)}
+              className="absolute right-4 top-4 rounded-full p-2 text-gray-500 hover:text-gray-800"
+              aria-label="Close consultation form"
+            >
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <h3 className="text-2xl font-bold mb-6 text-center">Get Free Consultation</h3>
+            <LeadForm />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
