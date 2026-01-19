@@ -35,4 +35,5 @@ main {
   .gradient-orange {
     background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-orange-dark) 100%);
   }
+
 }
