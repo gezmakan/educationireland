@@ -120,19 +120,34 @@ export default function Page() {
         <div className="relative max-w-6xl mx-auto px-3 py-6 md:px-6 md:py-24">
           {/* Logo */}
           <div className="flex justify-center mb-4 md:mb-12">
-            <Image src="/educationstatelogo.png" alt="Education State" width={352} height={106} />
+            <Image src="/educationstatelogo.png" alt="Education State" width={400} height={121} />
           </div>
 
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-black leading-tight mb-8">
-              Ireland-Only Master&apos;s Consulting for Malaysian Students
+            <h1
+              className="text-4xl md:text-6xl font-black leading-tight mb-8 text-white"
+              style={{ textShadow: "0 2px 6px rgba(0,0,0,0.45)" }}
+            >
+              Start your Master&apos;s Degree Journey in Ireland
             </h1>
-            <div className="flex flex-wrap justify-center gap-4 text-lg">
-              <span className="bg-emerald-500 px-4 py-2 rounded-full font-semibold">✓ 100% Free Service</span>
-              <span className="bg-amber-400 text-black px-4 py-2 rounded-full font-semibold">✓ 15+ Years Ireland-Only Expertise</span>
-              <span className="bg-purple-500 px-4 py-2 rounded-full font-semibold">✓ Dublin Office + Malaysia Support</span>
+            <div className="flex flex-wrap justify-center gap-3 text-lg">
+              {[
+                "100% Free Consultation",
+                "15+ Years Ireland-Only Expertise",
+                "Dublin Office Support",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/85 px-5 py-2.5 text-base font-semibold text-gray-900 shadow-sm"
+                >
+                  <svg className="h-4 w-4 text-[#F7A906]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  {item}
+                </span>
+              ))}
             </div>
-            <p className="mt-6 text-lg opacity-80">
+            <p className="mt-6 text-lg text-white/90">
               Trusted by students worldwide. Now open for Malaysia consultations.
             </p>
           </div>
@@ -140,7 +155,7 @@ export default function Page() {
       </section>
 
       {/* ============ CONSULTATION SECTION ============ */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
@@ -161,6 +176,7 @@ export default function Page() {
                   "Take Your English to the Highest Level",
                   "Stand Out from Your Competitors",
                   "Strengthen Your CV",
+                  "Work in Ireland after graduation and build real international experience.",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <svg className="h-5 w-5 text-[#2D6A4F] mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,26 +186,19 @@ export default function Page() {
                   </li>
                 ))}
               </ul>
-              <p className="text-lg text-gray-700 mb-6">
-                When You Return, Let Your Competitors Think... If You Even Want to Return!
-              </p>
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-                className="inline-flex items-center gap-2 px-8 py-4 gradient-orange text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
-              >
-                Get in Touch for Free Consulting!
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </button>
-              <p className="text-sm text-gray-500 mt-4">
-                Join 4,782+ students who started their Ireland journey with us
-              </p>
-              <p className="text-sm text-gray-500 mt-1">
-                Based in Putrajaya, supporting students across Malaysia
-              </p>
             </div>
+          </div>
+          <div className="mt-10 text-center">
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-2 px-8 py-4 gradient-orange text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+            >
+              Get in Touch for Free Consulting!
+            </button>
+            <p className="text-sm text-gray-600 mt-3">
+              Universities, Tuition Fees, Application Requirements, and More...
+            </p>
           </div>
         </div>
       </section>
@@ -204,7 +213,7 @@ export default function Page() {
             A popular destination for Malaysian postgrads seeking world-class education and EU work rights
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 icon: (
@@ -261,8 +270,9 @@ export default function Page() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={1.5}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                      d="M4 6h16a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z"
                     />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2 18h20" />
                   </svg>
                 ),
                 title: "2-Year Work Visa",
@@ -303,14 +313,15 @@ export default function Page() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={1.5}
-                      d="M5 3l4 4-4 4M9 7h10a4 4 0 014 4v0"
+                      d="M4 19V7a2 2 0 012-2h12a2 2 0 012 2v12"
                     />
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={1.5}
-                      d="M19 21l-4-4 4-4M15 17H5a4 4 0 01-4-4v0"
+                      d="M7 19V9h10v10"
                     />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 13h4" />
                   </svg>
                 ),
                 title: "Gateway to Europe",
@@ -323,18 +334,32 @@ export default function Page() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={1.5}
-                      d="M3 3v18h18"
+                      d="M3 20h18"
                     />
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={1.5}
-                      d="M3 17l6-6 4 4 8-8"
+                      d="M4 20l6-10 4 6 4-7 2 11"
                     />
                   </svg>
                 ),
                 title: "Beautiful Country",
                 desc: "Green landscapes, dramatic cliffs, historic castles - explore while you study",
+              },
+              {
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M12 3v6m0 0l3-3m-3 3L9 6m-3 9h12a2 2 0 012 2v4H4v-4a2 2 0 012-2z"
+                    />
+                  </svg>
+                ),
+                title: "Modern Tech Hub",
+                desc: "Ireland is a European tech hub with innovation-focused campuses and startup energy.",
               },
             ].map((item, i) => (
               <div key={i} className="text-center p-6 rounded-2xl bg-gray-50 hover:bg-[#F7A906]/10 transition-colors">
@@ -345,48 +370,6 @@ export default function Page() {
                 <p className="text-gray-600">{item.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ SPECIAL OFFER ============ */}
-      <section className="py-20 bg-gradient-to-r from-[#1a1a1a] to-[#2d2d2d] text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="mb-6 flex justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-[#F7A906]">
-              <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M12 8v13m-7-9h14M5 8l4 13m10-13-4 13M6 8c0-1.657 1.343-3 3-3 1.2 0 2.236.704 2.733 1.72C12.23 5.704 13.266 5 14.467 5c1.657 0 3 1.343 3 3"
-                />
-              </svg>
-            </div>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-black mb-8">
-            Special Offer for <span className="text-[#F7A906]">September 2026</span>
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-6 text-left mb-10">
-            {[
-              "Special Scholarships for Successful Students",
-              "Admission with Duolingo (about RM230 vs IELTS about RM1,000)",
-              "Flexible Installment Payment Options",
-              "Free Health Insurance (about RM500)",
-              "Free Accommodation Arrangement (about RM500)",
-              "Ongoing Support from Our Dublin Office",
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3 text-lg">
-                <span className="text-[#F7A906] text-2xl">✓</span>
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="inline-block bg-[#F7A906] text-black px-8 py-4 rounded-xl">
-            <div className="text-sm uppercase tracking-wider">Total Savings</div>
-            <div className="text-4xl font-black">RM1,000+</div>
           </div>
         </div>
       </section>
@@ -416,43 +399,54 @@ export default function Page() {
             ))}
           </div>
 
-          <div className="bg-white p-8 rounded-2xl shadow-sm">
-            <h3 className="text-xl font-bold text-center mb-6">Ireland is Home to Global Giants</h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center text-sm text-gray-600">
-              <div>9 of Top 10<br/><strong>Software Companies</strong></div>
-              <div>9 of Top 10<br/><strong>US Tech Companies</strong></div>
-              <div>8 of Top 10<br/><strong>Game Companies</strong></div>
-              <div>18 of Top 25<br/><strong>Financial Services</strong></div>
-              <div>All Top 10<br/><strong>Pharma Companies</strong></div>
+          <div className="rounded-3xl bg-white p-10 shadow-lg">
+            <h3 className="text-2xl md:text-3xl font-black mb-8 text-[#1a1a1a]">Ireland is Home to Global Giants</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                { label: "US Tech Companies", companies: ["Google", "Meta", "Apple"] },
+                { label: "Game Companies", companies: ["EA", "Ubisoft", "Activision Blizzard"] },
+                { label: "Financial Services", companies: ["JPMorgan", "Citi", "Bank of America"] },
+                { label: "Pharma Companies", companies: ["Pfizer", "Johnson & Johnson", "Abbott"] },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-2xl border border-gray-200 bg-gray-50 p-4 text-center"
+                >
+                  <div className="text-lg font-extrabold text-[#1a1a1a]">{item.label}</div>
+                  <div className="mt-3 text-sm text-gray-600">
+                    {item.companies.join(" • ")}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* ============ ABOUT EDUCATION STATE ============ */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#F0F7F4]">
         <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black mb-4">
+              <span className="text-[#F7A906]">Why</span> Education State?
+            </h2>
+            <p className="text-lg text-gray-700">
+              Founded in 2010, we are Ireland-only specialists with an office in Dublin.
+            </p>
+          </div>
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-black mb-6">
-                Why <span className="text-[#F7A906]">Education State</span>?
-              </h2>
               <div className="space-y-4 text-lg text-gray-600">
-                <p>Founded in 2010, we are <strong className="text-gray-900">Ireland-only specialists</strong> with an office in Dublin.</p>
                 <p><strong className="text-gray-900">All services are 100% FREE.</strong> We get paid by universities, not you.</p>
                 <p>Our team are former international students who&apos;ve been through the journey themselves.</p>
                 <p>We support you <strong className="text-gray-900">before AND after</strong> you arrive in Ireland.</p>
                 <p>Malaysia is our newest focus, and consultations are now open.</p>
               </div>
 
-              <div className="flex items-center gap-6 mt-8">
-                <div className="flex items-center gap-2">
-                  <span className="text-[#F7A906] font-bold text-2xl">4.9</span>
-                  <span className="text-[#F7A906]">★★★★★</span>
-                </div>
-                <div className="text-gray-500">
-                  <strong className="text-[#2D6A4F]">1,000+</strong> Reviews on Google & Facebook
-                </div>
+              <div className="mt-8 rounded-2xl bg-white/70 p-5 shadow-sm">
+                <div className="text-3xl font-black text-[#F7A906]">4.9</div>
+                <div className="text-[#F7A906] text-lg">★★★★★</div>
+                <div className="text-sm text-gray-600 mt-1">1,000+ Reviews on Google &amp; Facebook</div>
               </div>
             </div>
 
@@ -598,7 +592,7 @@ export default function Page() {
       </section>
 
       {/* ============ FINAL CTA ============ */}
-      <section className="py-20 bg-[#1a1a1a] text-white">
+      <section className="py-20 bg-[#0F2E28] text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-5xl font-black mb-4">
             Your Future in Ireland Starts Now
@@ -608,8 +602,43 @@ export default function Page() {
           </p>
 
           <div className="bg-white/10 rounded-2xl p-8 md:p-12 max-w-xl mx-auto">
-            <h3 className="text-2xl font-bold mb-6">Get Your FREE Consultation</h3>
-            <LeadForm dark />
+            <h3 className="text-2xl font-bold mb-4">
+              Special Offer for <span className="text-[#F7A906]">September 2026</span>
+            </h3>
+            <div className="grid gap-3 text-left mb-6">
+              {[
+                "Special Scholarships for Successful Students",
+                "Admission with Duolingo (about RM230 vs IELTS about RM1,000)",
+                "Flexible Installment Payment Options",
+                "Free Health Insurance (about RM500)",
+                "Free Accommodation Arrangement (about RM500)",
+                "Ongoing Support from Our Dublin Office",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3 text-base">
+                  <span className="text-[#F7A906] text-xl">✓</span>
+                  <span className="text-gray-200">{item}</span>
+                </div>
+              ))}
+            </div>
+            <div className="inline-flex items-center gap-3 bg-[#F7A906] text-black px-5 py-3 rounded-xl mb-6">
+              <span className="text-xs uppercase tracking-wider">Total Savings</span>
+              <span className="text-2xl font-black">RM1,000+</span>
+            </div>
+            <div>
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="inline-flex items-center gap-2 px-8 py-4 gradient-orange text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+              >
+                Get Your FREE Consultation
+              </button>
+              <p className="mt-4 text-sm text-gray-300">
+                Join 4,782+ students who started their Ireland journey with us
+              </p>
+              <p className="text-sm text-gray-400 mt-1">
+                Based in Putrajaya, supporting students across Malaysia
+              </p>
+            </div>
           </div>
 
           <div className="mt-12 flex flex-wrap justify-center gap-8 text-gray-400">
