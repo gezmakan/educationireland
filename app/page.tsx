@@ -123,9 +123,17 @@ export default function Page() {
   return (
     <main>
       {/* ============ HERO ============ */}
-      <section className="relative text-white" style={{ backgroundImage: "url('/dublin.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+      <section className="relative text-white">
+        <Image
+          src="/dublin.jpg"
+          alt="Dublin cityscape"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50"></div>
-        <div className="relative max-w-6xl mx-auto px-3 py-6 md:px-6 md:py-24">
+        <div className="relative max-w-6xl mx-auto px-6 py-12 md:px-6 md:py-24">
           {/* Logo */}
           <div className="flex justify-center mb-4 md:mb-12">
             <Image src="/educationstatelogo.png" alt="Education State" width={400} height={121} />
@@ -204,8 +212,8 @@ export default function Page() {
             >
               Get in Touch for Free Consulting!
             </button>
-            <p className="text-sm text-gray-600 mt-3">
-              Universities, Tuition Fees, Application Requirements, and More...
+            <p className="text-base text-gray-600 mt-3">
+              We&apos;ll guide you through universities, fees, visas, and more.
             </p>
           </div>
         </div>
@@ -370,7 +378,7 @@ export default function Page() {
                 desc: "Ireland is a European tech hub with innovation-focused campuses and startup energy.",
               },
             ].map((item, i) => (
-              <div key={i} className="text-center p-6 rounded-2xl bg-gray-50 hover:bg-[#F7A906]/10 transition-colors">
+              <div key={i} className="text-center p-6 rounded-2xl bg-gray-50 shadow-sm hover:bg-[#F7A906]/10 transition-colors">
                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#00B2CC]/10 text-[#00B2CC]">
                   {item.icon}
                 </div>
@@ -638,35 +646,29 @@ export default function Page() {
       {/* ============ FINAL CTA ============ */}
       <section className="py-20 bg-[#0F2E28] text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-black mb-4">
-            Your Future in Ireland Starts Now
+          <h2 className="text-3xl md:text-5xl font-black mb-12">
+            Special Offer for September 2026
           </h2>
-          <p className="text-xl text-gray-300 mb-12">
-            Don&apos;t wait. September 2026 spots are filling up fast.
-          </p>
 
           <div className="bg-white/10 rounded-2xl p-8 md:p-12 max-w-xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">
-              Special Offer for <span className="text-[#F7A906]">September 2026</span>
-            </h3>
             <div className="grid gap-3 text-left mb-6">
               {[
                 "Special Scholarships for Successful Students",
-                "Admission with Duolingo (about RM230 vs IELTS about RM1,000)",
+                "Admission with the Duolingo Exam",
                 "Flexible Installment Payment Options",
                 "Free Health Insurance (about RM500)",
                 "Free Accommodation Arrangement (about RM500)",
                 "Ongoing Support from Our Dublin Office",
               ].map((item) => (
-                <div key={item} className="flex items-center gap-3 text-base">
-                  <span className="text-[#F7A906] text-xl">✓</span>
+                <div key={item} className="flex items-center gap-3 text-lg">
+                  <span className="text-[#F7A906] text-2xl">✓</span>
                   <span className="text-gray-200">{item}</span>
                 </div>
               ))}
             </div>
-            <div className="inline-flex items-center gap-3 bg-[#F7A906] text-black px-5 py-3 rounded-xl mb-6">
-              <span className="text-xs uppercase tracking-wider">Total Savings</span>
-              <span className="text-2xl font-black">RM1,000+</span>
+            <div className="inline-flex items-center gap-3 mb-6">
+              <span className="text-sm uppercase tracking-wider text-gray-300">Total Discount</span>
+              <span className="text-3xl font-black text-[#F7A906]">RM1,000</span>
             </div>
             <div>
               <button
@@ -701,9 +703,9 @@ export default function Page() {
             LIMITED TIME
           </div>
           <h2 className="text-3xl md:text-5xl font-black mb-4">
-            September 2026 Intake Closing Soon
+            Don&apos;t Miss the September 2026 Intake
           </h2>
-          <p className="text-xl text-gray-300 mb-10">Application deadline: April 30, 2026</p>
+          <p className="text-xl text-[#F7A906] font-semibold mb-10">Application deadline: April 30, 2026</p>
           <Countdown />
         </div>
       </section>
