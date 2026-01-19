@@ -212,7 +212,7 @@ export default function Page() {
       </section>
 
       {/* ============ WHY IRELAND ============ */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#F0F7F4]">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl md:text-5xl font-black text-center mb-4 text-[#1a1a1a]">
             Why Study in <span className="text-[#2D6A4F]">Ireland</span>?
@@ -406,17 +406,8 @@ export default function Page() {
               </div>
             ))}
           </div>
-          <div className="text-center mb-12">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 px-8 py-4 gradient-orange text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
-            >
-              Get Free Consultation
-            </button>
-          </div>
 
-          <div className="rounded-3xl bg-white p-10 shadow-lg">
+          <div className="rounded-3xl p-10">
             <h3 className="text-2xl md:text-3xl font-black mb-8 text-[#1a1a1a]">Ireland is Home to Global Giants</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
@@ -427,7 +418,7 @@ export default function Page() {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-2xl border border-gray-200 bg-gray-50 p-4 text-center"
+                  className="rounded-2xl bg-white p-4 text-center"
                 >
                   <div className="text-lg font-extrabold text-[#1a1a1a]">{item.label}</div>
                   <div className="mt-3 text-sm text-gray-600">
@@ -436,6 +427,18 @@ export default function Page() {
                 </div>
               ))}
             </div>
+          </div>
+          <div className="text-center mt-12">
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-2 px-8 py-4 gradient-orange text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+            >
+              Get Free Consultation
+            </button>
+            <p className="mt-3 text-sm text-gray-600">
+              Talk to someone who has worked at a global tech company in Ireland
+            </p>
           </div>
         </div>
       </section>
