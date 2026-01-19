@@ -1,6 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
+
+declare global {
+  interface Window {
+    hbspt?: {
+      forms: {
+        create: (config: {
+          portalId: string;
+          formId: string;
+          region: string;
+          target: string;
+        }) => void;
+      };
+    };
+  }
+}
 import Image from "next/image";
 
 // Countdown Timer Component
@@ -42,78 +57,48 @@ function Countdown() {
   );
 }
 
-// Lead Form Component
-function LeadForm({ dark = false }: { dark?: boolean }) {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", city: "" });
-  const [sent, setSent] = useState(false);
-  const [sending, setSending] = useState(false);
+// HubSpot Form Component
+function HubSpotForm() {
+  const [loaded, setLoaded] = useState(false);
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setSending(false);
-    setSent(true);
-  };
+  useEffect(() => {
+    // Check if script already loaded
+    if (window.hbspt) {
+      window.hbspt.forms.create({
+        portalId: "5190509",
+        formId: "29945ab3-c7b9-4574-a5b8-dc3716bbf6b3",
+        region: "na1",
+        target: "#hubspot-form-container",
+      });
+      setLoaded(true);
+      return;
+    }
 
-  if (sent) {
-    return (
-      <div className="text-center py-8">
-        <div className="text-5xl mb-4">✓</div>
-        <div className={`text-2xl font-bold ${dark ? "text-white" : "text-gray-900"}`}>Thank You!</div>
-        <div className={dark ? "text-gray-300" : "text-gray-600"}>We&apos;ll contact you within 24 hours.</div>
-      </div>
-    );
-  }
-
-  const inputClass = `w-full px-6 py-4 text-lg rounded-lg border-2 ${
-    dark
-      ? "bg-white/10 border-white/20 text-white placeholder-gray-400 focus:border-[#F7A906]"
-      : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:border-[#F7A906]"
-  } outline-none transition-colors`;
+    const script = document.createElement("script");
+    script.src = "https://js.hsforms.net/forms/embed/v2.js";
+    script.async = true;
+    script.onload = () => {
+      if (window.hbspt) {
+        window.hbspt.forms.create({
+          portalId: "5190509",
+          formId: "29945ab3-c7b9-4574-a5b8-dc3716bbf6b3",
+          region: "na1",
+          target: "#hubspot-form-container",
+        });
+        setLoaded(true);
+      }
+    };
+    document.head.appendChild(script);
+  }, []);
 
   return (
-    <form onSubmit={submit} className="space-y-4">
-      <input
-        type="text"
-        required
-        placeholder="Your Full Name"
-        value={form.name}
-        onChange={(e) => setForm({ ...form, name: e.target.value })}
-        className={inputClass}
-      />
-      <input
-        type="email"
-        required
-        placeholder="Email Address"
-        value={form.email}
-        onChange={(e) => setForm({ ...form, email: e.target.value })}
-        className={inputClass}
-      />
-      <input
-        type="tel"
-        required
-        placeholder="Phone Number"
-        value={form.phone}
-        onChange={(e) => setForm({ ...form, phone: e.target.value })}
-        className={inputClass}
-      />
-      <input
-        type="text"
-        required
-        placeholder="City"
-        value={form.city}
-        onChange={(e) => setForm({ ...form, city: e.target.value })}
-        className={inputClass}
-      />
-      <button
-        type="submit"
-        disabled={sending}
-        className="w-full py-5 text-xl font-bold text-white rounded-lg gradient-orange hover:opacity-90 transition-opacity disabled:opacity-50"
-      >
-        {sending ? "Sending..." : "GET FREE CONSULTATION →"}
-      </button>
-    </form>
+    <div id="hubspot-form-container" className="min-h-[200px]">
+      {!loaded && (
+        <div className="flex items-center justify-center py-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#F7A906]"></div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -220,173 +205,159 @@ export default function Page() {
       </section>
 
       {/* ============ WHY IRELAND ============ */}
-      <section className="py-20 bg-[#F0F7F4]">
+      <section className="py-20 bg-[#F0F7F4] overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl md:text-5xl font-black text-center mb-4 text-[#1a1a1a]">
             Why Study in <span className="text-[#2D6A4F]">Ireland</span>?
           </h2>
-          <p className="text-xl text-gray-500 text-center mb-16 max-w-3xl mx-auto">
-            Every year, due to its high education standards, approximately 20,000 international students come to Ireland!
+          <p className="text-xl text-gray-500 text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+            Join <span className="font-bold text-[#2D6A4F]">20,000+</span> international students choosing Ireland every year
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Mobile: Horizontal scroll carousel */}
+          <div className="md:hidden -mx-6 px-6">
+            <div className="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
+              {[
+                {
+                  title: "Top 100 Universities",
+                  desc: "Study at globally ranked institutions with world-class faculty and facilities",
+                  iconColor: "text-emerald-600 bg-emerald-100",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                },
+                {
+                  title: "Fast Visa Process",
+                  desc: "Student visas processed in 3-4 weeks with high approval rates",
+                  iconColor: "text-blue-600 bg-blue-100",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                },
+                {
+                  title: "Work 20 Hrs/Week",
+                  desc: "Part-time work rights during studies with competitive hourly wages",
+                  iconColor: "text-amber-600 bg-amber-100",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                },
+                {
+                  title: "2-Year Post-Study Visa",
+                  desc: "Stay and work full-time for 2 years after graduation at top companies",
+                  iconColor: "text-purple-600 bg-purple-100",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                },
+                {
+                  title: "English Speaking",
+                  desc: "English-taught programs with IELTS or Duolingo options",
+                  iconColor: "text-rose-600 bg-rose-100",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                },
+                {
+                  title: "Welcoming Culture",
+                  desc: "Irish people are known worldwide for their warmth and friendly nature",
+                  iconColor: "text-green-600 bg-green-100",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                },
+                {
+                  title: "Gateway to Europe",
+                  desc: "Travel across 27 EU countries while you study",
+                  iconColor: "text-indigo-600 bg-indigo-100",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                },
+                {
+                  title: "Stunning Landscapes",
+                  desc: "Green hills, dramatic cliffs, historic castles - explore while you study",
+                  iconColor: "text-teal-600 bg-teal-100",
+                  icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 20h18" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 20l6-10 4 6 4-7 2 11" /></>
+                },
+                {
+                  title: "Global Tech Hub",
+                  desc: "Home to Google, Meta, Apple & 1000+ tech companies",
+                  iconColor: "text-violet-600 bg-violet-100",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                },
+              ].map((item, i) => (
+                <div key={i} className="flex-shrink-0 w-[280px] snap-center">
+                  <div className="h-full bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                    <div className={`w-14 h-14 rounded-xl ${item.iconColor} flex items-center justify-center mb-4`}>
+                      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">{item.icon}</svg>
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-gray-400 text-center mt-2">Swipe for more →</p>
+          </div>
+
+          {/* Desktop: Clean grid with subtle hover */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M12 14l9-5-9-5-9 5 9 5z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-                    />
-                  </svg>
-                ),
                 title: "Top 100 Universities",
                 desc: "Study at globally ranked institutions with world-class faculty and facilities",
+                iconColor: "text-emerald-600 bg-emerald-100 group-hover:bg-emerald-200",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
               },
               {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                ),
-                title: "Easy Visa Process",
-                desc: "Student visas processed in about 3-4 weeks. Zero refusals for our Master's students",
+                title: "Fast Visa Process",
+                desc: "Student visas processed in 3-4 weeks with high approval rates",
+                iconColor: "text-blue-600 bg-blue-100 group-hover:bg-blue-200",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               },
               {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                ),
-                title: "Work While Studying",
-                desc: "Earn about RM70/hour minimum wage working 20 hours/week during your studies",
+                title: "Work 20 Hrs/Week",
+                desc: "Part-time work rights during studies with competitive hourly wages",
+                iconColor: "text-amber-600 bg-amber-100 group-hover:bg-amber-200",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               },
               {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M4 6h16a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z"
-                    />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2 18h20" />
-                  </svg>
-                ),
-                title: "2-Year Work Visa",
+                title: "2-Year Post-Study Visa",
                 desc: "Stay and work full-time for 2 years after graduation at top companies",
+                iconColor: "text-purple-600 bg-purple-100 group-hover:bg-purple-200",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
               },
               {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
-                    />
-                  </svg>
-                ),
                 title: "English Speaking",
                 desc: "English-taught programs with IELTS or Duolingo options",
+                iconColor: "text-rose-600 bg-rose-100 group-hover:bg-rose-200",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
               },
               {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
-                ),
-                title: "Friendly Culture",
-                desc: "Irish people are known worldwide for their warmth and welcoming nature",
+                title: "Welcoming Culture",
+                desc: "Irish people are known worldwide for their warmth and friendly nature",
+                iconColor: "text-green-600 bg-green-100 group-hover:bg-green-200",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
               },
               {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M4 19V7a2 2 0 012-2h12a2 2 0 012 2v12"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M7 19V9h10v10"
-                    />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 13h4" />
-                  </svg>
-                ),
                 title: "Gateway to Europe",
-                desc: "Easy Europe access with 1-stop routes from Malaysia",
+                desc: "Travel across 27 EU countries while you study",
+                iconColor: "text-indigo-600 bg-indigo-100 group-hover:bg-indigo-200",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               },
               {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M3 20h18"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M4 20l6-10 4 6 4-7 2 11"
-                    />
-                  </svg>
-                ),
-                title: "Beautiful Country",
-                desc: "Green landscapes, dramatic cliffs, historic castles - explore while you study",
+                title: "Stunning Landscapes",
+                desc: "Green hills, dramatic cliffs, historic castles - explore while you study",
+                iconColor: "text-teal-600 bg-teal-100 group-hover:bg-teal-200",
+                icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 20h18" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 20l6-10 4 6 4-7 2 11" /></>
               },
               {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M12 3v6m0 0l3-3m-3 3L9 6m-3 9h12a2 2 0 012 2v4H4v-4a2 2 0 012-2z"
-                    />
-                  </svg>
-                ),
-                title: "Modern Tech Hub",
-                desc: "Ireland is a European tech hub with innovation-focused campuses and startup energy.",
+                title: "Global Tech Hub",
+                desc: "Home to Google, Meta, Apple & 1000+ tech companies",
+                iconColor: "text-violet-600 bg-violet-100 group-hover:bg-violet-200",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               },
             ].map((item, i) => (
-              <div key={i} className="text-center p-6 rounded-2xl bg-gray-50 shadow-sm hover:bg-[#F7A906]/10 transition-colors">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#00B2CC]/10 text-[#00B2CC]">
-                  {item.icon}
+              <div
+                key={i}
+                className="group bg-white rounded-2xl p-8 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
+                <div className={`w-14 h-14 rounded-xl ${item.iconColor} flex items-center justify-center mb-5 transition-colors duration-300`}>
+                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">{item.icon}</svg>
                 </div>
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-gray-500 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
+
           <div className="mt-12 text-center">
             <button
               type="button"
@@ -397,6 +368,10 @@ export default function Page() {
             </button>
           </div>
         </div>
+
+        <style jsx>{`
+          div::-webkit-scrollbar { display: none; }
+        `}</style>
       </section>
 
       {/* ============ SUCCESS STORIES ============ */}
@@ -740,9 +715,8 @@ export default function Page() {
           </div>
 
           <div className="mt-12 flex flex-wrap justify-center gap-8 text-gray-400">
-            <span>✓ 100% Free Service</span>
-            <span>✓ Zero Visa Refusals</span>
-            <span>✓ Dublin Office Support</span>
+            <span>✓ 100% Free Consultation</span>
+            <span>✓ Local Dublin Office Support</span>
             <span>✓ 14+ Years Experience</span>
           </div>
         </div>
@@ -793,7 +767,7 @@ export default function Page() {
               </svg>
             </button>
             <h3 className="text-2xl font-bold mb-6 text-center">Get Free Consultation</h3>
-            <LeadForm />
+            <HubSpotForm />
           </div>
         </div>
       )}
