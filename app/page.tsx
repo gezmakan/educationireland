@@ -17,6 +17,7 @@ declare global {
   }
 }
 import Image from "next/image";
+import dublinImage from "@/public/dublin.jpg";
 
 // Countdown Timer Component
 function Countdown() {
@@ -108,17 +109,12 @@ function ConsultationForm() {
         }
       );
 
-      const data = await response.json();
-      console.log("HubSpot response:", response.status, data);
-
       if (response.ok) {
         setStatus("success");
       } else {
-        console.error("HubSpot error:", data);
         setStatus("error");
       }
-    } catch (err) {
-      console.error("Submission error:", err);
+    } catch {
       setStatus("error");
     }
   };
@@ -223,16 +219,66 @@ function ConsultationForm() {
 
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const testimonials = [
+    {
+      name: "Bebe E.",
+      quote:
+        "Knowing that they have an office in Ireland and that I can always knock on their door gives me a sense of security.",
+      image: "/ourstudents/Bebe E..png",
+    },
+    {
+      name: "Hilola H.",
+      quote:
+        "A good consultancy company that I can confidently recommend to anyone who wants to study abroad.",
+      image: "/ourstudents/Hilola H..png",
+    },
+    {
+      name: "Nisa Nur S.",
+      quote: "Don't be afraid to write your own story...",
+      image: "/ourstudents/Nisa Nur S..png",
+    },
+    {
+      name: "Elif O.",
+      quote:
+        "Knowing that they have an office in Ireland and that I can always knock on their door gives me a sense of security.",
+      image: "/ourstudents/Elif O. .png",
+    },
+    {
+      name: "Muhammad T.",
+      quote:
+        "I owe getting my visa to Education Ireland. Their care, interest, patience, and clear answers to all my questions helped me manage this process very smoothly.",
+      image: "/ourstudents/Muhammad T..png",
+    },
+    {
+      name: "Tolga S.",
+      quote:
+        "I am truly grateful to my consultant Seda, who supported me throughout my entire journey in Ireland from sharing her knowledge with me to being there whenever I had questions.",
+      image: "/ourstudents/Tolga S..png",
+    },
+  ];
+  const successStories = [
+    { src: "/professionals/IMG_4140.jpg", alt: "Student success story 1" },
+    { src: "/professionals/IMG_4215.jpg", alt: "Student success story 2" },
+    { src: "/professionals/IMG_4440.jpg", alt: "Student success story 3" },
+    { src: "/professionals/IMG_4441.jpg", alt: "Student success story 4" },
+    { src: "/professionals/IMG_4445.jpg", alt: "Student success story 5" },
+    { src: "/professionals/IMG_4454.jpg", alt: "Student success story 6" },
+    { src: "/professionals/IMG_4475.jpg", alt: "Student success story 7" },
+    { src: "/professionals/IMG_4479.jpg", alt: "Student success story 8" },
+    { src: "/professionals/IMG_4486.jpg", alt: "Student success story 9" },
+  ];
 
   return (
     <main>
       {/* ============ HERO ============ */}
       <section className="relative text-white overflow-hidden">
         <Image
-          src="/dublin.jpg"
+          src={dublinImage}
           alt="Dublin cityscape"
           fill
           priority
+          fetchPriority="high"
+          placeholder="blur"
           className="object-cover"
           sizes="100vw"
         />
@@ -344,8 +390,8 @@ export default function Page() {
                   icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                 },
                 {
-                  title: "Fast Visa Process",
-                  desc: "Student visas processed in 3-4 weeks with high approval rates",
+                  title: "Visa-Free Entry",
+                  desc: "Malaysians can enter Ireland visa-free; student visas process in 3-4 weeks with high approval rates",
                   iconColor: "text-blue-600 bg-blue-100",
                   icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 },
@@ -416,8 +462,8 @@ export default function Page() {
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
               },
               {
-                title: "Fast Visa Process",
-                desc: "Student visas processed in 3-4 weeks with high approval rates",
+                title: "Visa-Free Entry",
+                desc: "Malaysians can enter Ireland visa-free; student visas process in 3-4 weeks with high approval rates",
                 iconColor: "text-blue-600 bg-blue-100 group-hover:bg-blue-200",
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               },
@@ -503,16 +549,29 @@ export default function Page() {
             They are building careers at global tech companies in Ireland
           </p>
 
-          <div className="grid sm:grid-cols-2 gap-6 mb-12">
-            {[
-              { src: "/professionals/erelozturk.png", alt: "Erel Ozturk" },
-              { src: "/professionals/ebubekirayhan.png", alt: "Ebubekir Ayhan" },
-              { src: "/professionals/bilgetuna.png", alt: "Bilge Tuna" },
-              { src: "/professionals/cemreer.png", alt: "Cemre Er" },
-            ].map((p) => (
-              <div key={p.src} className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                <div className="relative aspect-[4/3]">
-                  <Image src={p.src} alt={p.alt} fill className="object-cover" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
+          <div className="md:hidden -mx-6 px-6 mb-12">
+            <div
+              className="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
+            >
+              {successStories.map((p) => (
+                <div key={p.src} className="flex-shrink-0 w-[308px] snap-center">
+                  <div className="bg-white rounded-2xl shadow-sm p-3">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-white p-1">
+                      <Image src={p.src} alt={p.alt} fill className="object-contain" sizes="88vw" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-gray-400 text-center mt-2">Swipe for more →</p>
+          </div>
+
+          <div className="hidden md:grid md:grid-cols-2 gap-6 mb-12">
+            {successStories.map((p) => (
+              <div key={p.src} className="bg-white rounded-2xl shadow-sm p-4">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-white p-3">
+                  <Image src={p.src} alt={p.alt} fill className="object-contain" sizes="(min-width: 1024px) 25vw, 50vw" />
                 </div>
               </div>
             ))}
@@ -678,44 +737,30 @@ export default function Page() {
             What Our Students Say
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Bebe E.",
-                quote:
-                  "Knowing that they have an office in Ireland and that I can always knock on their door gives me a sense of security.",
-                image: "/Bebe E..png",
-              },
-              {
-                name: "Hilola H.",
-                quote:
-                  "A good consultancy company that I can confidently recommend to anyone who wants to study abroad.",
-                image: "/Hilola H..png",
-              },
-              {
-                name: "Nisa Nur S.",
-                quote: "Don't be afraid to write your own story...",
-                image: "/Nisa Nur S..png",
-              },
-              {
-                name: "Elif O.",
-                quote:
-                  "Knowing that they have an office in Ireland and that I can always knock on their door gives me a sense of security.",
-                image: "/Elif O. .png",
-              },
-              {
-                name: "Muhammad T.",
-                quote:
-                  "I owe getting my visa to Education Ireland. Their care, interest, patience, and clear answers to all my questions helped me manage this process very smoothly.",
-                image: "/Muhammad T..png",
-              },
-              {
-                name: "Tolga S.",
-                quote:
-                  "I am truly grateful to my consultant Seda, who supported me throughout my entire journey in Ireland from sharing her knowledge with me to being there whenever I had questions.",
-                image: "/Tolga S..png",
-              },
-            ].map((t, i) => (
+          <div className="md:hidden -mx-6 px-6">
+            <div
+              className="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
+            >
+              {testimonials.map((t, i) => (
+                <div key={i} className="flex-shrink-0 w-[280px] snap-center">
+                  <div className="bg-white p-6 rounded-2xl shadow-sm h-full">
+                    <div className="flex items-center justify-center mb-5">
+                      <div className="relative h-24 w-24 overflow-hidden rounded-full shadow-sm">
+                        <Image src={t.image} alt={t.name} fill className="object-cover" sizes="96px" />
+                      </div>
+                    </div>
+                    <div className="font-bold text-center">{t.name}</div>
+                    <p className="text-gray-600 mt-3 text-center italic">{t.quote}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-gray-400 text-center mt-2">Swipe for more →</p>
+          </div>
+
+          <div className="hidden md:grid md:grid-cols-3 gap-8">
+            {testimonials.map((t, i) => (
               <div key={i} className="bg-white p-6 rounded-2xl shadow-sm">
                 <div className="flex items-center justify-center mb-5">
                   <div className="relative h-24 w-24 overflow-hidden rounded-full shadow-sm">
