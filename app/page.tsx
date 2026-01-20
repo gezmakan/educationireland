@@ -258,12 +258,12 @@ function MetricCard({
   const formatted = new Intl.NumberFormat("en-US").format(count);
 
   return (
-    <div className="bg-white/70 px-4 py-4 md:px-6 rounded-2xl text-center shadow-sm">
-      <div className="text-xl md:text-4xl font-black text-[#F7A906]">
+    <div className="bg-white/70 px-4 py-5 md:px-6 rounded-2xl text-center shadow-sm">
+      <div className="text-3xl md:text-4xl font-black text-[#F7A906]">
         {formatted}
         {suffix}
       </div>
-      <div className="text-xs md:text-base text-gray-600">{label}</div>
+      <div className="text-sm md:text-base text-gray-600">{label}</div>
     </div>
   );
 }
@@ -764,7 +764,7 @@ export default function Page() {
               />
             </div>
           </div>
-          <div ref={metricsRef} className="mt-12 grid grid-cols-4 gap-3 md:gap-6">
+          <div ref={metricsRef} className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {metrics.map((s) => (
               <MetricCard
                 key={s.label}
@@ -971,10 +971,12 @@ export default function Page() {
       <section className="bg-[#1a1a1a] text-white py-16">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="inline-block bg-red-500 text-white px-4 py-1 rounded-full text-sm font-bold mb-6 animate-pulse">
-            LIMITED TIME
+            Final Weeks to Apply
           </div>
           <h2 className="text-3xl md:text-5xl font-black mb-4">
-            Don&apos;t Miss the September 2026 Intake
+            Don&apos;t Miss the
+            <br className="hidden sm:block" />
+            September 2026 Intake
           </h2>
           <p className="text-xl text-[#F7A906] font-semibold mb-10">Application deadline: April 30, 2026</p>
           <Countdown />
