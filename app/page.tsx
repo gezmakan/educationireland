@@ -272,6 +272,8 @@ export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const metricsRef = useRef<HTMLDivElement | null>(null);
   const [metricsInView, setMetricsInView] = useState(false);
+  const [heroOffset, setHeroOffset] = useState(0);
+  const [heroAnimKey, setHeroAnimKey] = useState(0);
   const testimonials = [
     {
       name: "Mahsun A.",
@@ -324,7 +326,7 @@ export default function Page() {
   const metrics = [
     { value: 4, label: "Offices Worldwide" },
     { value: 34, label: "Expert Consultants" },
-    { value: 14, label: "Years Experience", suffix: "+" },
+    { value: 15, label: "Years Experience", suffix: "+" },
     { value: 4700, label: "Students Helped", suffix: "+" },
   ];
 
@@ -346,20 +348,50 @@ export default function Page() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceMotion.matches) return;
+
+    let raf = 0;
+    let lastOffset = -1;
+    const tick = () => {
+      const offset = Math.min(window.scrollY * 0.2, 60);
+      if (offset !== lastOffset) {
+        lastOffset = offset;
+        setHeroOffset(offset);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  useEffect(() => {
+    const id = setTimeout(() => setHeroAnimKey((key) => key + 1), 0);
+    return () => clearTimeout(id);
+  }, []);
+
   return (
     <main>
       {/* ============ HERO ============ */}
       <section className="relative text-white overflow-hidden">
-        <Image
-          src={dublinImage}
-          alt="Dublin cityscape"
-          fill
-          priority
-          fetchPriority="high"
-          placeholder="blur"
-          className="object-cover"
-          sizes="100vw"
-        />
+        <div
+          key={heroAnimKey}
+          className="hero-zoom absolute inset-0 will-change-transform"
+          style={{ "--hero-offset": `${heroOffset}px` } as React.CSSProperties}
+        >
+          <Image
+            src={dublinImage}
+            alt="Dublin cityscape"
+            fill
+            priority
+            fetchPriority="high"
+            placeholder="blur"
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50"></div>
         <div className="relative max-w-6xl mx-auto px-6 py-12 md:px-6 md:py-24">
           {/* Logo */}
@@ -391,11 +423,27 @@ export default function Page() {
                 </span>
               ))}
             </div>
-            <p className="mt-6 text-lg text-white/90">
-              Trusted by students worldwide. Now open for Malaysia consultations.
-            </p>
           </div>
         </div>
+        <style jsx>{`
+          .hero-zoom {
+            transform: translateY(var(--hero-offset, 0px)) scale(1);
+            animation: heroZoom 8s ease-out forwards;
+          }
+          @keyframes heroZoom {
+            from {
+              transform: translateY(var(--hero-offset, 0px)) scale(1.02);
+            }
+            to {
+              transform: translateY(var(--hero-offset, 0px)) scale(1.08);
+            }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .hero-zoom {
+              animation: none;
+            }
+          }
+        `}</style>
       </section>
 
       {/* ============ CONSULTATION SECTION ============ */}
@@ -518,7 +566,7 @@ export default function Page() {
               ].map((item, i) => (
                 <div key={i} className="flex-shrink-0 w-[280px] snap-center">
                   <div className="h-full bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-                    <div className={`w-14 h-14 rounded-xl ${item.iconColor} flex items-center justify-center mb-4`}>
+                    <div className={`w-14 h-14 rounded-xl ${item.iconColor} mx-auto flex items-center justify-center mb-4`}>
                       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">{item.icon}</svg>
                     </div>
                     <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
@@ -592,7 +640,7 @@ export default function Page() {
                 key={i}
                 className="group bg-white rounded-2xl p-8 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                <div className={`w-14 h-14 rounded-xl ${item.iconColor} flex items-center justify-center mb-5 transition-colors duration-300`}>
+                <div className={`w-14 h-14 rounded-xl ${item.iconColor} mx-auto flex items-center justify-center mb-5 transition-colors duration-300`}>
                   <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">{item.icon}</svg>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
@@ -914,7 +962,7 @@ export default function Page() {
           <div className="mt-12 flex flex-wrap justify-center gap-8 text-gray-400">
             <span>✓ 100% Free Consultation</span>
             <span>✓ Local Dublin Office Support</span>
-            <span>✓ 14+ Years Experience</span>
+            <span>✓ 15+ Years Experience</span>
           </div>
         </div>
       </section>

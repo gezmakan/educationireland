@@ -1,7 +1,7 @@
 const stats = [
   { value: "3", label: "Offices", description: "Global presence" },
   { value: "34", label: "Consultants", description: "Expert team" },
-  { value: "14+", label: "Years", description: "Of experience" },
+  { value: "15+", label: "Years", description: "Of experience" },
   { value: "4,782", label: "Students", description: "Helped so far" },
 ];
 

@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Study Masters in Ireland | Education State - Free Consulting for Malaysian Students",
   description:
-    "Get free consulting for your Master's degree in Ireland. Top universities, 2-year work visa, affordable tuition. 14+ years experience helping 4,782+ students. Apply for September 2026!",
+    "Get free consulting for your Master's degree in Ireland. Top universities, 2-year work visa, affordable tuition. 15+ years experience helping 4,782+ students. Apply for September 2026!",
   keywords: [
     "study in Ireland",
     "masters degree Ireland",
