@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 declare global {
   interface Window {
@@ -217,13 +217,66 @@ function ConsultationForm() {
   );
 }
 
+function useCountUp(target: number, enabled: boolean, duration = 1200) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!enabled) {
+      setValue(0);
+      return;
+    }
+
+    let raf = 0;
+    const start = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      setValue(Math.round(target * progress));
+      if (progress < 1) {
+        raf = requestAnimationFrame(step);
+      }
+    };
+
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [target, enabled, duration]);
+
+  return value;
+}
+
+function MetricCard({
+  value,
+  label,
+  suffix,
+  inView,
+}: {
+  value: number;
+  label: string;
+  suffix?: string;
+  inView: boolean;
+}) {
+  const count = useCountUp(value, inView);
+  const formatted = new Intl.NumberFormat("en-US").format(count);
+
+  return (
+    <div className="bg-white/70 px-4 py-4 md:px-6 rounded-2xl text-center shadow-sm">
+      <div className="text-xl md:text-4xl font-black text-[#F7A906]">
+        {formatted}
+        {suffix}
+      </div>
+      <div className="text-xs md:text-base text-gray-600">{label}</div>
+    </div>
+  );
+}
+
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const metricsRef = useRef<HTMLDivElement | null>(null);
+  const [metricsInView, setMetricsInView] = useState(false);
   const testimonials = [
     {
-      name: "Bebe E.",
+      name: "Mahsun A.",
       quote:
-        "Knowing that they have an office in Ireland and that I can always knock on their door gives me a sense of security.",
+        "I completed my Master’s degree at Technological University Dublin. I’m very happy because this was a very important step in my career.",
       image: "/ourstudents/Bebe E..png",
     },
     {
@@ -233,8 +286,9 @@ export default function Page() {
       image: "/ourstudents/Hilola H..png",
     },
     {
-      name: "Nisa Nur S.",
-      quote: "Don't be afraid to write your own story...",
+      name: "Meysa M.",
+      quote:
+        "I completed my Master’s degree at Griffith College Dublin. I recommend Ireland to anyone who has excitement and ambition about going abroad.",
       image: "/ourstudents/Nisa Nur S..png",
     },
     {
@@ -267,6 +321,30 @@ export default function Page() {
     { src: "/professionals/IMG_4479.jpg", alt: "Student success story 8" },
     { src: "/professionals/IMG_4486.jpg", alt: "Student success story 9" },
   ];
+  const metrics = [
+    { value: 4, label: "Offices Worldwide" },
+    { value: 34, label: "Expert Consultants" },
+    { value: 14, label: "Years Experience", suffix: "+" },
+    { value: 4700, label: "Students Helped", suffix: "+" },
+  ];
+
+  useEffect(() => {
+    const target = metricsRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMetricsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <main>
@@ -567,7 +645,7 @@ export default function Page() {
             <p className="text-xs text-gray-400 text-center mt-2">Swipe for more →</p>
           </div>
 
-          <div className="hidden md:grid md:grid-cols-2 gap-6 mb-12">
+          <div className="hidden md:grid md:grid-cols-3 gap-6 mb-12">
             {successStories.map((p) => (
               <div key={p.src} className="bg-white rounded-2xl shadow-sm p-4">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-white p-3">
@@ -579,59 +657,16 @@ export default function Page() {
 
           <div>
             <h3 className="text-2xl md:text-3xl font-black mb-8 text-[#1a1a1a] text-center">Ireland is Home to Global Giants</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                {
-                  label: "US Tech Companies",
-                  companies: ["Google", "Meta", "Apple"],
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  ),
-                },
-                {
-                  label: "Game Companies",
-                  companies: ["EA", "Ubisoft", "Activision Blizzard"],
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  ),
-                },
-                {
-                  label: "Financial Services",
-                  companies: ["JPMorgan", "Citi", "Bank of America"],
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                  ),
-                },
-                {
-                  label: "Pharma Companies",
-                  companies: ["Pfizer", "Johnson & Johnson", "Abbott"],
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                    </svg>
-                  ),
-                },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-2xl bg-white p-6 text-center shadow-sm"
-                >
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#F7A906]/20 text-[#F7A906] mb-4">
-                    {item.icon}
-                  </div>
-                  <div className="text-lg font-bold text-[#1a1a1a]">{item.label}</div>
-                  <div className="mt-2 text-base text-gray-600">
-                    {item.companies.join(" • ")}
-                  </div>
-                </div>
-              ))}
+            <div className="bg-white rounded-2xl shadow-sm p-4 md:p-6">
+              <div className="relative w-full aspect-[4/5] md:aspect-[4/3]">
+                <Image
+                  src="/irelandcompanies2.png"
+                  alt="Ireland's technology landscape with leading global company logos"
+                  fill
+                  className="object-contain"
+                  sizes="(min-width: 768px) 80vw, 100vw"
+                />
+              </div>
             </div>
           </div>
           <div className="text-center mt-12">
@@ -657,7 +692,7 @@ export default function Page() {
               <span className="text-[#F7A906]">Why</span> Education State?
             </h2>
             <p className="text-lg text-gray-700">
-              Founded in 2010, we are Ireland-only specialists with an office in Dublin.
+              Founded in 2010, we are Ireland-only education specialists with our main office in Dublin.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -666,7 +701,7 @@ export default function Page() {
                 <p><strong className="text-gray-900">All services are 100% FREE.</strong> We get paid by universities, not you.</p>
                 <p>Our team are former international students who&apos;ve been through the journey themselves.</p>
                 <p>We support you <strong className="text-gray-900">before AND after</strong> you arrive in Ireland.</p>
-                <p>Malaysia is our newest focus, and consultations are now open.</p>
+                <p><strong className="text-gray-900">Malaysia</strong> is our newest focus, and consultations are now open.</p>
               </div>
 
             </div>
@@ -681,24 +716,22 @@ export default function Page() {
               />
             </div>
           </div>
-          <div className="mt-12 flex flex-wrap justify-center gap-6">
-            {[
-              { value: "3", label: "Offices Worldwide" },
-              { value: "34", label: "Expert Consultants" },
-              { value: "14+", label: "Years Experience" },
-              { value: "4,782", label: "Students Helped" },
-            ].map((s) => (
-              <div key={s.label} className="bg-white/70 px-6 py-4 rounded-2xl text-center shadow-sm">
-                <div className="text-3xl md:text-4xl font-black text-[#F7A906]">{s.value}</div>
-                <div className="text-gray-600">{s.label}</div>
-              </div>
+          <div ref={metricsRef} className="mt-12 grid grid-cols-4 gap-3 md:gap-6">
+            {metrics.map((s) => (
+              <MetricCard
+                key={s.label}
+                value={s.value}
+                label={s.label}
+                suffix={s.suffix}
+                inView={metricsInView}
+              />
             ))}
           </div>
           <div className="mt-10 text-center">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 text-lg text-gray-700">
+            <div className="flex flex-wrap items-center justify-center gap-2 text-base md:text-lg text-gray-700">
               <span className="font-semibold text-[#1a1a1a]">Education Ireland</span>
-              <span className="hidden md:inline text-gray-300">•</span>
-              <span className="text-[#F7A906] font-extrabold text-xl">4.9</span>
+              <span className="text-gray-300">•</span>
+              <span className="text-[#F7A906] font-extrabold text-lg md:text-xl">4.9</span>
               <span className="flex items-center gap-1 text-[#F7A906]" aria-label="5 star rating">
                 {[...Array(5)].map((_, i) => (
                   <svg key={i} className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -746,7 +779,7 @@ export default function Page() {
                 <div key={i} className="flex-shrink-0 w-[280px] snap-center">
                   <div className="bg-white p-6 rounded-2xl shadow-sm h-full">
                     <div className="flex items-center justify-center mb-5">
-                      <div className="relative h-24 w-24 overflow-hidden rounded-full shadow-sm">
+                    <div className="relative h-28 w-28 overflow-hidden rounded-full shadow-sm">
                         <Image src={t.image} alt={t.name} fill className="object-cover" sizes="96px" />
                       </div>
                     </div>
@@ -763,7 +796,7 @@ export default function Page() {
             {testimonials.map((t, i) => (
               <div key={i} className="bg-white p-6 rounded-2xl shadow-sm">
                 <div className="flex items-center justify-center mb-5">
-                  <div className="relative h-24 w-24 overflow-hidden rounded-full shadow-sm">
+                  <div className="relative h-28 w-28 overflow-hidden rounded-full shadow-sm">
                     <Image src={t.image} alt={t.name} fill className="object-cover" sizes="96px" />
                   </div>
                 </div>
@@ -806,19 +839,19 @@ export default function Page() {
               },
               {
                 q: "Can I work while studying?",
-                a: "Yes. During summer and Christmas holidays, you are allowed to work full-time, and part-time during the rest of the year. As of January 1, 2025, the minimum wage in Ireland is about RM70 per hour, making Ireland one of the countries with the highest minimum wages in the world.",
+                a: "Yes. During summer and Christmas holidays, you are allowed to work full-time, and part-time during the rest of the year. As of January 1, 2025, the minimum wage in Ireland is €14.15 per hour (about RM70), making Ireland one of the countries with the highest minimum wages in the world.",
               },
               {
                 q: "Do I have the right to work in Ireland after graduation?",
                 a: "Graduates of master's programs in Ireland are granted a 2-year work and residence permit. With this permit, you can work full-time in Ireland after graduation.",
               },
               {
-                q: "Do I need to pay an application fee?",
-                a: "Yes. To start the process, a about RM1,300 deposit is required. If you are accepted, this amount will be deducted from your tuition fee. If you are not accepted, the deposit will be fully refunded.",
-              },
-              {
                 q: "Have any of your students ever been refused a visa?",
                 a: "So far, none of our master's students have received a visa refusal.",
+              },
+              {
+                q: "Is it easy to make friends in Ireland?",
+                a: "Yes. Irish people are known to be friendly and social. We also organize regular meetups and events so students can connect, share experiences, and settle in faster.",
               },
               {
                 q: "If my visa is refused, how much will be deducted?",
@@ -870,7 +903,7 @@ export default function Page() {
                 Get Your FREE Consultation
               </button>
               <p className="mt-4 text-sm text-gray-300">
-                Join 4,782+ students who started their Ireland journey with us
+                Join 4,700+ students who started their Ireland journey with us
               </p>
               <p className="text-sm text-gray-400 mt-1">
                 Based in Putrajaya, supporting students across Malaysia
