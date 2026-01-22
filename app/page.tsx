@@ -17,6 +17,7 @@ declare global {
   }
 }
 import Image from "next/image";
+import Link from "next/link";
 import dublinImage from "@/public/dublin.jpg";
 
 // Countdown Timer Component
@@ -302,7 +303,7 @@ export default function Page() {
     {
       name: "Muhammad T.",
       quote:
-        "I owe getting my visa to Education Ireland. Their care, interest, patience, and clear answers to all my questions helped me manage this process very smoothly.",
+        "I owe getting my visa to Education State. Their care, interest, patience, and clear answers to all my questions helped me manage this process very smoothly.",
       image: "/ourstudents/Muhammad T..png",
     },
     {
@@ -777,7 +778,7 @@ export default function Page() {
           </div>
           <div className="mt-10 text-center">
             <div className="flex flex-wrap items-center justify-center gap-2 text-base md:text-lg text-gray-700">
-              <span className="font-semibold text-[#1a1a1a]">Education Ireland</span>
+              <span className="font-semibold text-[#1a1a1a]">Education State</span>
               <span className="text-gray-300">•</span>
               <span className="text-[#F7A906] font-extrabold text-lg md:text-xl">4.9</span>
               <span className="flex items-center gap-1 text-[#F7A906]" aria-label="5 star rating">
@@ -988,6 +989,9 @@ export default function Page() {
         <div className="max-w-6xl mx-auto px-6 text-center">
           <div className="text-xl font-bold text-white mb-2">EDUCATION STATE</div>
           <p>© {new Date().getFullYear()} Education State. All rights reserved.</p>
+          <Link href="/terms" className="mt-3 inline-block text-sm text-gray-400 hover:text-white transition-colors">
+            Terms and Conditions
+          </Link>
         </div>
       </footer>
 

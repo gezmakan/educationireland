@@ -21,7 +21,7 @@ const testimonials = [
   {
     name: "Mehmet Taspinar",
     quote:
-      "I owe getting my visa to Education Ireland. Their care, interest, patience, and clear answers to all my questions helped me manage this process very smoothly.",
+      "I owe getting my visa to Education State. Their care, interest, patience, and clear answers to all my questions helped me manage this process very smoothly.",
   },
   {
     name: "Tolga Solak",
